@@ -6,14 +6,39 @@ package entity;
 
 
 public class Compte {
-    private int id;
-    private String username;
-    private String password;
-    private String email;
-    private Role role;
+   private int iD;
+	private String nomUtilsateur;
+	private String email;
+	private String pswd;
+	private Role role;
+	private Personnel compte;
 
-    public Role getRole() {
-        return role;
+    public Compte(int iD, String nomUtilsateur, String email, String pswd, Role role, Personnel compte) {
+        this.iD = iD;
+        this.nomUtilsateur = nomUtilsateur;
+        this.email = email;
+        this.pswd = pswd;
+        this.role = role;
+        this.compte = compte;
+    }
+
+    public Compte() {
+    }
+
+    public int getiD() {
+        return iD;
+    }
+
+    public void setiD(int iD) {
+        this.iD = iD;
+    }
+
+    public String getNomUtilsateur() {
+        return nomUtilsateur;
+    }
+
+    public void setNomUtilsateur(String nomUtilsateur) {
+        this.nomUtilsateur = nomUtilsateur;
     }
 
     public String getEmail() {
@@ -24,42 +49,31 @@ public class Compte {
         this.email = email;
     }
 
+    public String getPswd() {
+        return pswd;
+    }
+
+    public void setPswd(String pswd) {
+        this.pswd = pswd;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
     public void setRole(Role role) {
         this.role = role;
     }
-    
 
-    public Compte() {}
-
-    public Compte(int id, String username, String password) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
+    public Personnel getCompte() {
+        return compte;
     }
 
-    public int getId() {
-        return id;
+    public void setCompte(Personnel compte) {
+        this.compte = compte;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
+ 
 
     
 }

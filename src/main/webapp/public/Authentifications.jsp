@@ -146,7 +146,7 @@
                 <input type="email" name="email" class="form-control" placeholder="Adresse email" required>
               </div>
               <div class="mb-3">
-                <input type="password" name="password" class="form-control" placeholder="Mot de passe" required>
+                <input type="password" name="passwordLog" class="form-control" placeholder="Mot de passe" required>
               </div>
               <button type="submit" class="btn btn-primary w-100 py-2">Se connecter</button>
             </form>
@@ -212,7 +212,6 @@
         confirmPassword.onkeyup = validatePassword;
       }
       
-      // Optional: Handle AJAX submission for both forms if desired
     });
   </script>
 </body>

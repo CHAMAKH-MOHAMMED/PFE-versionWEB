@@ -20,7 +20,7 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         
         String email = request.getParameter("email");
-        String password = request.getParameter("password");
+        String password = request.getParameter("passwordLog");
        
         Compte user = null;
         
@@ -34,7 +34,7 @@ public class LoginServlet extends HttpServlet {
         }
 
         // Vérifier si l'utilisateur existe et si le mot de passe est correct
-        if (user != null && user.getPassword() != null && user.getPassword().equals(password)) {
+        if (user != null && user.getPswd()!= null && user.getPswd().equals(password)) {
             // Créer une session et stocker l'utilisateur
             HttpSession session = request.getSession();
             session.setAttribute("user", user);

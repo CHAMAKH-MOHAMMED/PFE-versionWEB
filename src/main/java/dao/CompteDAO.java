@@ -6,15 +6,12 @@ import java.sql.*;
 
 public class CompteDAO {
 
-    private final String jdbcURL = "jdbc:mysql://localhost:3306/security";
-    private final String jdbcUsername = "root";
-    private final String jdbcPassword = "";
-    private final String jdbcDriver = "com.mysql.cj.jdbc.Driver";
     private Connection conn;
+    private DbSingleton dbSingleton;
 
     public CompteDAO() throws SQLException, ClassNotFoundException {
-        Class.forName(jdbcDriver);
-        this.conn = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
+        dbSingleton = DbSingleton.getInstance();
+        conn = dbSingleton.getConnection();
     }
 
     public Compte getUserByUsername(String email) throws SQLException {
@@ -29,7 +26,10 @@ public class CompteDAO {
                     String password = rs.getString("password");
                     int roleId = rs.getInt("role_id");
 
-                    Compte user = new Compte(userId, emaill, password);
+                    Compte user = new Compte();
+                    user.setiD(userId);
+                    user.setEmail(email);
+                    user.setPswd(password);
 
                     // Récupérer le rôle de l'utilisateur
                     String sqlRole = "SELECT * FROM userrole WHERE id = ?";
@@ -66,7 +66,7 @@ public class CompteDAO {
         String insertUserSql = "INSERT INTO compte (username,email, password, idRole) VALUES (?, ?, ?)";
         try (PreparedStatement insertStmt = conn.prepareStatement(insertUserSql)) {
             insertStmt.setString(1, user.getEmail());
-            insertStmt.setString(2, user.getPassword()); // ⚠️ À HASHER en production
+            insertStmt.setString(2, user.getPswd()); // ⚠️ À HASHER en production
             insertStmt.setInt(3, 2); // ID du rôle utilisateur par défaut (à adapter)
 
             int rowsInserted = insertStmt.executeUpdate();
@@ -76,7 +76,7 @@ public class CompteDAO {
     // Méthode pour ajouter un compte
 
     public boolean ajouterCompte(String username, String password, int role, String email) throws SQLException {
-       String sql = "INSERT INTO compte (username, password, role_id,email) VALUES (?, ?, ?,?)";
+        String sql = "INSERT INTO compte (username, password, role_id,email) VALUES (?, ?, ?,?)";
 
         PreparedStatement stmt = conn.prepareStatement(sql);
 

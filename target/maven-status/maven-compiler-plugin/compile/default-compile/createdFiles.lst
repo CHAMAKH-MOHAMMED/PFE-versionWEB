@@ -1,7 +1,10 @@
 security\AdminFilter.class
+dao\PersonnelDAO.class
 controller\LoginServlet.class
 dao\CompteDAO.class
+entity\Personnel.class
 controller\CompteServlet.class
 entity\Compte.class
 entity\Role.class
 security\PatientFilter.class
+dao\DbSingleton.class

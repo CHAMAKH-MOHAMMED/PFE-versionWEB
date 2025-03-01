@@ -2,6 +2,9 @@ C:\Users\MohammedCHamakh\Documents\NetBeansProjects\WEB\src\main\java\security\P
 C:\Users\MohammedCHamakh\Documents\NetBeansProjects\WEB\src\main\java\dao\CompteDAO.java
 C:\Users\MohammedCHamakh\Documents\NetBeansProjects\WEB\src\main\java\controller\LoginServlet.java
 C:\Users\MohammedCHamakh\Documents\NetBeansProjects\WEB\src\main\java\entity\Role.java
+C:\Users\MohammedCHamakh\Documents\NetBeansProjects\WEB\src\main\java\dao\PersonnelDAO.java
 C:\Users\MohammedCHamakh\Documents\NetBeansProjects\WEB\src\main\java\entity\Compte.java
+C:\Users\MohammedCHamakh\Documents\NetBeansProjects\WEB\src\main\java\dao\DbSingleton.java
 C:\Users\MohammedCHamakh\Documents\NetBeansProjects\WEB\src\main\java\controller\CompteServlet.java
+C:\Users\MohammedCHamakh\Documents\NetBeansProjects\WEB\src\main\java\entity\Personnel.java
 C:\Users\MohammedCHamakh\Documents\NetBeansProjects\WEB\src\main\java\security\AdminFilter.java

@@ -188,7 +188,7 @@
         <!-- Hero Image -->
         <div class="col-lg-6">
           <div class="hero-image">
-            <img src="https://images.unsplash.com/photo-1582610285985-a42d9193f2fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+              <img src="../static/docter.jpg" 
                  alt="Libération du tabac">
             <div class="stats-badge">
               <span class="text-primary fw-bold">95%</span>
