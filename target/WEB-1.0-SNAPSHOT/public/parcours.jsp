@@ -105,11 +105,14 @@
       border-radius: 10px;
       position: relative;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s, box-shadow 0.3s;
+      transition: transform 0.3s, box-shadow 0.3s, opacity 0.5s;
+      opacity: 0;
+      transform: translateY(20px);
     }
-    .timeline-content:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    /* Class to trigger animation */
+    .timeline-content.animate {
+      opacity: 1;
+      transform: translateY(0);
     }
     .timeline-content h4 {
       margin-top: 0;
@@ -136,33 +139,21 @@
       color: var(--accent-color);
     }
     
-    /* Animated Text */
-    .animated-text {
-      opacity: 0;
-      transform: translateY(20px);
-     
-    }
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    
     /* Responsive Timeline */
     @media (max-width: 767px) {
       .timeline::before {
-        left: 8%;
+        left: 20px;
       }
       .timeline-item {
         width: 100%;
         padding-left: 2.5rem;
         padding-right: 1.5rem;
-        text-align: left;
         margin-bottom: 2.5rem;
+        text-align: left;
+        left: 0 !important;
       }
       .timeline-item::before {
-        left: 0;
+        left: -10px;
       }
     }
     
@@ -185,8 +176,8 @@
   <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container">
         <a class="navbar-brand fw-bold" href="index.jsp">
-        <i class="fas fa-leaf me-2"></i>TabacStop
-      </a>
+          <i class="fas fa-leaf me-2"></i>TabacStop
+        </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -268,9 +259,9 @@
           <div class="timeline-content animated-text" style="animation-delay: 1s;">
             <h4><i class="fas fa-trophy me-2"></i>Étape 5: Réussite & Bien-Être</h4>
             <p>Célébrez vos succès et adoptez un mode de vie sain pour profiter d'une vie sans tabac.</p>
-            <div class="timeline-tip  " >
+            <div class="timeline-tip">
               <i class="fas fa-lightbulb"></i>
-              <span >Conseil: Récompensez-vous pour chaque étape franchie et partagez votre réussite avec vos proches.</span>
+              <span>Conseil: Récompensez-vous pour chaque étape franchie et partagez votre réussite avec vos proches.</span>
             </div>
           </div>
         </li>
@@ -296,12 +287,12 @@
   <script>
     $(document).ready(function() {
       // Trigger fade-in animations on scroll
-      $(window).scroll(function() {
-        $('.animated-text').each(function() {
-          var position = $(this).offset().top;
-          var scrollPosition = $(window).scrollTop() + $(window).height();
-          if (scrollPosition > position) {
-            $(this).css('opacity', '1');
+      $(window).on('scroll', function() {
+        $('.timeline-content').each(function() {
+          var elementTop = $(this).offset().top;
+          var viewportBottom = $(window).scrollTop() + $(window).height();
+          if (viewportBottom > elementTop + 50) {
+            $(this).addClass('animate');
           }
         });
       });
