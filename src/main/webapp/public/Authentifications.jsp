@@ -141,12 +141,12 @@
           <!-- Login Tab -->
           <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
             <h2 class="text-center mb-4" style="color: var(--primary-color);">Connexion</h2>
-            <form action="LoginServlet" method="post" id="loginForm">
+            <form action="LoginServlet" method="Post" id="loginForm">
               <div class="mb-3">
                 <input type="email" name="email" class="form-control" placeholder="Adresse email" required>
               </div>
               <div class="mb-3">
-                <input type="password" name="passwordLog" class="form-control" placeholder="Mot de passe" required>
+                <input type="password" name="password" class="form-control" placeholder="Mot de passe" required>
               </div>
               <button type="submit" class="btn btn-primary w-100 py-2">Se connecter</button>
             </form>
@@ -190,29 +190,6 @@
   <!-- jQuery and Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    $(document).ready(function(){
-      // Fade in the auth card on page load
-      $('.auth-card').hide().fadeIn(1000);
-      
-      // Password matching validation for registration
-      const password = document.querySelector('input[name="password"]');
-      const confirmPassword = document.querySelector('input[name="confirmPassword"]');
-      
-      function validatePassword() {
-        if (password.value !== confirmPassword.value) {
-          confirmPassword.setCustomValidity("Les mots de passe ne correspondent pas");
-        } else {
-          confirmPassword.setCustomValidity('');
-        }
-      }
-      
-      if(password && confirmPassword){
-        password.onchange = validatePassword;
-        confirmPassword.onkeyup = validatePassword;
-      }
-      
-    });
-  </script>
+  
 </body>
 </html>

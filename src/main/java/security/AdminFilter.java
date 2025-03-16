@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebFilter("/admin/*") // Appliquer ce filtre à toutes les pages sous /admin/
+@WebFilter("/adminsttts/*") // Appliquer ce filtre à toutes les pages sous /admin/
 public class AdminFilter implements Filter {
 
     @Override

@@ -6,31 +6,31 @@ package entity;
 
 
 public class Compte {
-   private int iD;
+   private int id;
 	private String nomUtilsateur;
 	private String email;
 	private String pswd;
 	private Role role;
-	private Personnel compte;
-
-    public Compte(int iD, String nomUtilsateur, String email, String pswd, Role role, Personnel compte) {
-        this.iD = iD;
-        this.nomUtilsateur = nomUtilsateur;
-        this.email = email;
-        this.pswd = pswd;
-        this.role = role;
-        this.compte = compte;
-    }
+	private Personnel Personnel;
 
     public Compte() {
     }
 
-    public int getiD() {
-        return iD;
+    public Compte(int id, String nomUtilsateur, String email, String pswd, Role role, Personnel Personnel) {
+        this.id = id;
+        this.nomUtilsateur = nomUtilsateur;
+        this.email = email;
+        this.pswd = pswd;
+        this.role = role;
+        this.Personnel = Personnel;
     }
 
-    public void setiD(int iD) {
-        this.iD = iD;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNomUtilsateur() {
@@ -65,12 +65,12 @@ public class Compte {
         this.role = role;
     }
 
-    public Personnel getCompte() {
-        return compte;
+    public Personnel getPersonnel() {
+        return Personnel;
     }
 
-    public void setCompte(Personnel compte) {
-        this.compte = compte;
+    public void setPersonnel(Personnel Personnel) {
+        this.Personnel = Personnel;
     }
 
  

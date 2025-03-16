@@ -10,7 +10,7 @@ public class DbSingleton {
     private static DbSingleton instance;
 
     // Database connection details
-    private final String jdbcURL = "jdbc:mysql://localhost:3306/security";
+    private final String jdbcURL = "jdbc:mysql://localhost:3306/pfe";
     private final String jdbcUsername = "root";
     private final String jdbcPassword = "";
     private final String jdbcDriver = "com.mysql.cj.jdbc.Driver";
@@ -28,10 +28,10 @@ public class DbSingleton {
     }
 
     // Public method to provide access to the singleton instance
-    public static synchronized DbSingleton getInstance() {
-        if (instance == null) {
+    public static  DbSingleton getInstance() {
+      
             instance = new DbSingleton();
-        }
+        
         return instance;
     }
 

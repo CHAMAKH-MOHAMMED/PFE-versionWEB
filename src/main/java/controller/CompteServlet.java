@@ -1,6 +1,7 @@
 package controller;
 
 import dao.CompteDAO;
+import entity.Compte;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,10 +25,14 @@ public class CompteServlet extends HttpServlet {
             String username = request.getParameter("username");
             String email = request.getParameter("email");
             String password = request.getParameter("password");
-            int role = 10;
+            int role = 2;
 
             CompteDAO compteDAO = new CompteDAO();
-            boolean success = compteDAO.ajouterCompte(username, password, role, email);
+            Compte c =new Compte();
+            c.setNomUtilsateur(username);
+            c.setEmail(email);
+            c.setPswd(password);
+            boolean success = compteDAO.registerUser(c);
 
             if (success) {
                 jsonResponse.put("status", "success");

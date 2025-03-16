@@ -1,10 +1,15 @@
 security\AdminFilter.class
 dao\PersonnelDAO.class
 controller\LoginServlet.class
-dao\CompteDAO.class
+controller\ChercherUtilisateur.class
 entity\Personnel.class
 controller\CompteServlet.class
+dao\RoleDAO.class
 entity\Compte.class
-entity\Role.class
 security\PatientFilter.class
 dao\DbSingleton.class
+controller\ModifierUtilisateur.class
+dao\CompteDAO.class
+controller\ChargerUtilisateur.class
+controller\supprimerUtilisateur.class
+entity\Role.class

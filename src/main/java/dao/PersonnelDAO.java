@@ -36,10 +36,10 @@ public class PersonnelDAO {
                 personnel.setAdresse(rs.getString("Adresse"));
                 personnel.setTelephone(rs.getString("Telephone"));
                 personnel.setEmail(rs.getString("Email"));
-                personnel.setSexe(rs.getString("Sexe").charAt(0));
+                personnel.setSexe(rs.getString("Sexe"));
                 personnel.setEtatCivil(rs.getString("EtatCivil"));
                 personnel.setMatricule(rs.getString("Matricule"));
-                personnel.setDateEmbauche(rs.getString("DateEmbauche"));
+                personnel.setDateEmbauche(rs.getDate("DateEmbauche"));
                 personnel.setSpecialitePrincipale(rs.getString("SpecialitePrincipale"));
 
                 personnels.add(personnel);
@@ -67,7 +67,7 @@ public class PersonnelDAO {
             pstmt.setString(8, String.valueOf(personnel.getSexe()));
             pstmt.setString(9, personnel.getEtatCivil());
             pstmt.setString(10, personnel.getMatricule());
-            pstmt.setString(11, personnel.getDateEmbauche());
+            pstmt.setDate(11, personnel.getDateEmbauche());
             pstmt.setString(12, personnel.getSpecialitePrincipale());
 
             int rowsAffected = pstmt.executeUpdate();
@@ -78,33 +78,34 @@ public class PersonnelDAO {
         }
     }
 
-    public Boolean modifierPersonnel(Personnel personnel) {
-        String query = "UPDATE Personnel SET Cin = ?, Nom = ?, Prenom = ?, DateNaissance = ?, Adresse = ?, Telephone = ?, Email = ?, Sexe = ?, EtatCivil = ?, Matricule = ?, DateEmbauche = ?, SpecialitePrincipale = ? WHERE ID = ?";
+ public Boolean modifierPersonnel(Personnel personnel) {
+    String query = "UPDATE personnel SET Cin = ?, Nom = ?, Prenom = ?, DateNaissance = ?, Adresse = ?, Telephone = ?, Email = ?, Sexe = ?, EtatCivil = ?, Matricule = ?, DateEmbauche = ?, SpecialitePrincipale = ? WHERE ID = ?";
 
-        try (Connection conn = db.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
+    try (Connection conn = db.getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(query)) {
 
-            pstmt.setString(1, personnel.getCin());
-            pstmt.setString(2, personnel.getNom());
-            pstmt.setString(3, personnel.getPrenom());
-            pstmt.setDate(4, personnel.getDateNaissance());
-            pstmt.setString(5, personnel.getAdresse());
-            pstmt.setString(6, personnel.getTelephone());
-            pstmt.setString(7, personnel.getEmail());
-            pstmt.setString(8, String.valueOf(personnel.getSexe()));
-            pstmt.setString(9, personnel.getEtatCivil());
-            pstmt.setString(10, personnel.getMatricule());
-            pstmt.setString(11, personnel.getDateEmbauche());
-            pstmt.setString(12, personnel.getSpecialitePrincipale());
-            pstmt.setInt(13, personnel.getiD());
+        // Paramètres
+        pstmt.setString(1, personnel.getCin() != null ? personnel.getCin() : "");
+        pstmt.setString(2, personnel.getNom() != null ? personnel.getNom() : "");
+        pstmt.setString(3, personnel.getPrenom() != null ? personnel.getPrenom() : "");
+        pstmt.setDate(4, personnel.getDateNaissance()); // Géré comme Date, null accepté
+        pstmt.setString(5, personnel.getAdresse() != null ? personnel.getAdresse() : "");
+        pstmt.setString(6, personnel.getTelephone() != null ? personnel.getTelephone() : "");
+        pstmt.setString(7, personnel.getEmail() != null ? personnel.getEmail() : "");
+        pstmt.setString(8, personnel.getSexe() != null ? (personnel.getSexe()) : "M"); 
+        pstmt.setString(9, personnel.getEtatCivil() != null ? personnel.getEtatCivil() : "");
+        pstmt.setString(10, personnel.getMatricule() != null ? personnel.getMatricule() : "");
+        pstmt.setDate(11, personnel.getDateEmbauche()); // Géré comme Date, null accepté
+        pstmt.setString(12, personnel.getSpecialitePrincipale() != null ? personnel.getSpecialitePrincipale() : "");
+        pstmt.setInt(13, personnel.getiD());
 
-            int rowsAffected = pstmt.executeUpdate();
-            return rowsAffected > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
+        int rowsAffected = pstmt.executeUpdate();
+        return rowsAffected > 0;
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false;
     }
+}
 
     public Boolean supprimerPersonnel(Personnel personnel) {
         String query = "DELETE FROM Personnel WHERE ID = ?";

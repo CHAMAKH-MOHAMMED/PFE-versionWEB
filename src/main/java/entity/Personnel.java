@@ -13,17 +13,17 @@ public class Personnel {
 	private String adresse;
 	private String telephone;
 	private String email;
-	private char sexe;
+	private  String sexe;
 	private String etatCivil;
 	private String matricule;
-	private String dateEmbauche;
+	private Date dateEmbauche;
 	private String specialitePrincipale;
 	private Compte compte;
 
     public Personnel() {
     }
 
-    public Personnel(int iD, String cin, String nom, String prenom, Date dateNaissance, String adresse, String telephone, String email, char sexe, String etatCivil, String matricule, String dateEmbauche, String specialitePrincipale, Compte compte) {
+    public Personnel(int iD, String cin, String nom, String prenom, Date dateNaissance, String adresse, String telephone, String email, String sexe, String etatCivil, String matricule, Date dateEmbauche, String specialitePrincipale, Compte compte) {
         this.iD = iD;
         this.cin = cin;
         this.nom = nom;
@@ -104,11 +104,11 @@ public class Personnel {
         this.email = email;
     }
 
-    public char getSexe() {
+    public String getSexe() {
         return sexe;
     }
 
-    public void setSexe(char sexe) {
+    public void setSexe(String sexe) {
         this.sexe = sexe;
     }
 
@@ -128,11 +128,11 @@ public class Personnel {
         this.matricule = matricule;
     }
 
-    public String getDateEmbauche() {
+    public Date getDateEmbauche() {
         return dateEmbauche;
     }
 
-    public void setDateEmbauche(String dateEmbauche) {
+    public void setDateEmbauche(Date dateEmbauche) {
         this.dateEmbauche = dateEmbauche;
     }
 
@@ -151,7 +151,6 @@ public class Personnel {
     public void setCompte(Compte compte) {
         this.compte = compte;
     }
-        
-	
+
     
 }
