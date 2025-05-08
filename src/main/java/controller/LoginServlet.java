@@ -18,8 +18,9 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         
         String email = request.getParameter("email");
+        System.out.println(email);
         String password = request.getParameter("password");
-
+        System.out.println(password);
         Compte user = null;
         
         try {

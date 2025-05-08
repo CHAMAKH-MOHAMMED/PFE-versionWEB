@@ -49,19 +49,22 @@ public class CompteDAO {
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     int userId = rs.getInt("id");
-                    System.out.println(id);
+                 
                     String emaill = rs.getString("Email");
-                    System.out.println(emaill);
+                    String nomUser=rs.getString("NomUtilsateur");
+                   
+                   
                     String password = rs.getString("password");
-                    System.out.println(password);
+               
                     int roleId = rs.getInt("RoleID");
                     user.setRole(getRoleById(roleId));
                     int compteID = rs.getInt("PersonnelID");
-                    System.out.println("le personnelID: " + compteID);
+                    
                     Personnel p = getPersonnel(compteID);
-                    System.out.println("le personnel: " + p);
+                   
                     user.setPersonnel(p);
                     user.setId(userId);
+                    user.setNomUtilsateur(nomUser);
                     user.setEmail(emaill);
                     user.setPswd(password);
                 }
@@ -124,7 +127,7 @@ public class CompteDAO {
             stmtRole.setInt(1, roleId);
             try (ResultSet rsRole = stmtRole.executeQuery()) {
                 if (rsRole.next()) {
-                    return new Role(rsRole.getInt("id"), rsRole.getString("Nom"));
+                    return new Role(rsRole.getInt("ID"), rsRole.getString("Nom"));
                 }
             }
         }
@@ -161,6 +164,86 @@ public class CompteDAO {
         }
         return personnel;
     }
+public boolean deleteCompte(int id) throws SQLException {
+    String sql = "DELETE FROM compte WHERE id = ?";
+    try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+        stmt.setInt(1, id);
+        int rowsAffected = stmt.executeUpdate();
+        return rowsAffected > 0; // Retourne true si au moins une ligne est supprimée
+    } catch (SQLException e) {
+        e.printStackTrace();
+        throw e;
+    }
+}
+public boolean ajouterCompte(Compte compte) throws SQLException {
+    Connection conn = null;
+    PreparedStatement stmtPersonnel = null;
+    PreparedStatement stmtCompte = null;
+    ResultSet generatedKeys = null;
+
+    try {
+        conn = DbSingleton.getInstance().getConnection();
+        conn.setAutoCommit(false); // DÉBUT de la transaction 🚀
+
+        // 1️⃣ Insérer le personnel
+        String sqlPersonnel = "INSERT INTO personnel (Cin, Nom, Prenom, DateNaissance, Adresse, Telephone, Email, Sexe, EtatCivil, Matricule, DateEmbauche, SpecialitePrincipale) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        stmtPersonnel = conn.prepareStatement(sqlPersonnel, Statement.RETURN_GENERATED_KEYS);
+        
+        Personnel personnel = compte.getPersonnel();
+        stmtPersonnel.setString(1, personnel.getCin());
+        stmtPersonnel.setString(2, personnel.getNom());
+        stmtPersonnel.setString(3, personnel.getPrenom());
+        stmtPersonnel.setDate(4, new java.sql.Date(personnel.getDateNaissance().getTime()));
+        stmtPersonnel.setString(5, personnel.getAdresse());
+        stmtPersonnel.setString(6, personnel.getTelephone());
+        stmtPersonnel.setString(7, personnel.getEmail());
+        stmtPersonnel.setString(8, personnel.getSexe());
+        stmtPersonnel.setString(9, personnel.getEtatCivil());
+        stmtPersonnel.setString(10, personnel.getMatricule());
+        stmtPersonnel.setDate(11, new java.sql.Date(personnel.getDateEmbauche().getTime()));
+        stmtPersonnel.setString(12, personnel.getSpecialitePrincipale());
+
+        int affectedRows = stmtPersonnel.executeUpdate();
+        if (affectedRows == 0) {
+            throw new SQLException("Échec de la création du personnel.");
+        }
+
+        // 2️⃣ Récupérer l'ID du personnel
+        generatedKeys = stmtPersonnel.getGeneratedKeys();
+        if (!generatedKeys.next()) {
+            throw new SQLException("Impossible de récupérer l'ID du personnel.");
+        }
+        int personnelId = generatedKeys.getInt(1);
+
+        // 3️⃣ Insérer le compte en liant avec le personnelID
+        String sqlCompte = "INSERT INTO compte (PersonnelID, RoleID, NomUtilsateur, Email, password) VALUES (?, ?, ?, ?, ?)";
+        stmtCompte = conn.prepareStatement(sqlCompte);
+        stmtCompte.setInt(1, personnelId);
+        stmtCompte.setInt(2, compte.getRole().getId());
+        stmtCompte.setString(3, compte.getNomUtilsateur());
+        stmtCompte.setString(4, compte.getEmail());
+        stmtCompte.setString(5, compte.getPswd());
+
+        stmtCompte.executeUpdate();
+
+        //  Valider la transaction (Si tout est OK)
+        conn.commit();
+        return true;
+
+    } catch (SQLException e) {
+        if (conn != null) {
+            conn.rollback(); // ❌ ANNULER tout si erreur
+        }
+        e.printStackTrace();
+        return false;
+    } finally {
+        // Fermer les ressources
+        if (generatedKeys != null) try { generatedKeys.close(); } catch (SQLException ignored) {}
+        if (stmtPersonnel != null) try { stmtPersonnel.close(); } catch (SQLException ignored) {}
+        if (stmtCompte != null) try { stmtCompte.close(); } catch (SQLException ignored) {}
+        if (conn != null) try { conn.setAutoCommit(true); } catch (SQLException ignored) {}
+    }
+}
 
     public boolean updateCompte(Compte compte) throws SQLException {
         String sql = "UPDATE compte SET Email = ?, NomUtilsateur = ?, RoleID = ? WHERE id = ?";

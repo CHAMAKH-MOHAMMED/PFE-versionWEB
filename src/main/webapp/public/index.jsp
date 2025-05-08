@@ -12,40 +12,121 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- Google Fonts for Montserrat -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    
     <!-- CSS Personnalisé -->
     <style>
         :root {
-            --primary-gradient: linear-gradient(135deg, #4169E1 0%, #2A4A9E 100%);
-            --primary-color: #4169E1;
-            --secondary-color: #2A4A9E;
-            --success-color: #2ecc71;
-            --danger-color: #e74c3c;
-            --dark-color: #343a40;
-            --light-color: #f8f9fa;
+            --primary-gradient: linear-gradient(135deg, #FF4500 0%, #FFA500 100%);
+            --primary-color: #FF4500;
+            --secondary-color: #FFD700;
+            --success-color: #32CD32;
+            --danger-color: #FF4500;
+            --dark-color: #1C2526;
+            --light-color: #D3D3D3;
+        }
+
+        .containar {
+            margin: 2.5% 0 2.5% 0;
+            width: 90%;
+            background: rgba(28, 37, 38, 0.85);
+            border-radius: 15px;
+            padding: 2rem;
+        }
+
+        .containar nav {
+            border-radius: 30px;
         }
 
         body {
-            font-family: 'Segoe UI', system-ui, sans-serif;
-            background-color: var(--light-color);
-            min-height: 100vh;
+            font-family: 'Montserrat', 'Segoe UI', system-ui, sans-serif;
+            background-color: var(--dark-color);
             display: flex;
-            flex-direction: column;
+            justify-content: center;
+            background-image: url("../static/background.jpg");
+            background-size: cover;
+            background-attachment: fixed;
+            color: var(--light-color);
         }
 
         .navbar {
-            background: var(--primary-gradient);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            background: rgba(28, 37, 38, 0.85);
+            border-radius: 30px;
+        }
+
+        .navbar-brand, .nav-link {
+            color: var(--light-color) !important;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color) !important;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .btn-outline-light {
+            border: none;
+            color: var(--light-color);
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .btn-outline-light:hover {
+            background: none;
+            color: var(--primary-color);
+        }
+
+        .btn-outline-light::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .btn-outline-light:hover::after {
+            width: 100%;
         }
 
         .hero-section {
             padding: 4rem 0;
+            background: rgba(28, 37, 38, 0.7);
+            border-radius: 15px;
+        }
+
+        .hero-content h1 {
+            color: #fff;
+        }
+
+        .hero-content .text-primary {
+            color: var(--primary-color) !important;
         }
 
         .hero-image {
             border-radius: 15px;
             transform: perspective(1500px) rotateY(10deg);
             transition: transform 0.5s ease;
-            box-shadow: 20px -20px 40px rgba(65, 105, 225, 0.2);
+            box-shadow: 20px -20px 40px rgba(255, 69, 0, 0.2);
+            border: 2px solid var(--primary-color);
         }
 
         .hero-image:hover {
@@ -58,21 +139,73 @@
             right: -1rem;
             width: 3.5rem;
             height: 3.5rem;
-            background: #fff;
+            background: var(--dark-color);
             border-radius: 50%;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 16px rgba(255, 69, 0, 0.3);
             z-index: 1;
+        }
+
+        .stats-badge span {
+            color: var(--primary-color);
         }
 
         .feature-card {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             border-radius: 12px;
+            background: rgba(28, 37, 38, 0.9);
+            color: var(--light-color);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(255, 69, 0, 0.3);
         }
 
         .calculateur-card {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(28, 37, 38, 0.95);
             backdrop-filter: blur(10px);
             border-radius: 15px;
+            color: var(--light-color);
+        }
+
+        .calculateur-card .form-control {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--light-color);
+            border: 1px solid var(--primary-color);
+        }
+
+        .calculateur-card .input-group-text {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+        }
+
+        .btn-primary {
+            background: var(--primary-gradient);
+            border: none;
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #FFA500 0%, #FF4500 100%);
+        }
+
+        .btn-outline-primary {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-outline-primary:hover {
+            background: var(--primary-color);
+            color: #fff;
+        }
+
+        .text-success {
+            color: var(--success-color) !important;
+        }
+
+        .text-danger {
+            color: var(--danger-color) !important;
         }
 
         .animate-pop {
@@ -82,6 +215,39 @@
         @keyframes pop {
             50% { transform: scale(1.08); }
             100% { transform: scale(1); }
+        }
+
+        .bg-light {
+            background: rgba(28, 37, 38, 0.5) !important;
+        }
+
+        .footer {
+            background: var(--dark-color);
+        }
+
+        .footer a {
+            color: var(--light-color);
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: var(--primary-color);
+        }
+
+        .footer a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .footer a:hover::after {
+            width: 100%;
         }
 
         @media (max-width: 768px) {
@@ -98,6 +264,7 @@
     </style>
 </head>
 <body>
+    <div class="containar">
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
@@ -115,9 +282,10 @@
                     <li class="nav-item">
                         <a class="nav-link" href="parcours.jsp"><i class="fas fa-road me-1"></i>Notre Parcours</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#contact"><i class="fas fa-phone me-1"></i>Contact</a>
-                    </li>
+                      <li class="nav-item">
+                             <a class="nav-link" href="InfoTest.jsp"><i class="fas fa-stethoscope me-1"></i>Outils Tests</a>
+                            </li>
+                   
                     <li class="nav-item">
                         <a class="btn btn-outline-light rounded-pill" href="Authentifications.jsp">
                             <i class="fas fa-sign-in-alt me-2"></i>Connexion/Inscription
@@ -243,7 +411,7 @@
     </section>
 
     <!-- Features Section -->
-    <section class="py-5 bg-light">
+    <!--  <section class="py-5 bg-light">
         <div class="container">
             <div class="row g-4">
                 <div class="col-md-4">
@@ -269,12 +437,12 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section>-->
 
     <!-- Footer -->
     <footer class="footer mt-auto py-4 bg-dark text-white">
         <div class="container text-center">
-            <p class="mb-2">&copy; 2023 Sevrage Tabagique. Tous droits réservés.</p>
+            <p class="mb-2">© 2023 Sevrage Tabagique. Tous droits réservés.</p>
             <div class="d-flex justify-content-center gap-3">
                 <a href="#" class="text-white text-decoration-none">Politique de confidentialité</a>
                 <a href="#" class="text-white text-decoration-none">Conditions d'utilisation</a>
@@ -282,7 +450,7 @@
             </div>
         </div>
     </footer>
-
+</div>
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
